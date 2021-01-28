@@ -1,0 +1,78 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<title>Listado de ventas</title>
+</head>
+<body style="padding-top : 60px ;">
+	<div class="container">
+	<nav class="navbar navbar-dark bg-dark fixed-top">
+  		<a class="navbar-brand" href="#">Ventas</a>
+  		<form>
+			{% csrf_token %}
+			{{ form.as_p }}
+		</form>
+  		<form class="form-inline my-2 my-lg-0">
+  			<div>
+			<input method="get" type="submit" class="btn btn-outline-success" value="Exportar a excel" name="mybtn">
+			</div>
+			<div>
+      			<a href="{% url 'gdiaria' %}" class="btn btn-outline-success my-2 my-sm-0">Total diario</a>
+      		</div>
+  			<div>
+      			<a href="{% url 'listain' %}" class="btn btn-outline-success my-2 my-sm-0">Ver Productos</a>
+      		</div>
+      		<div>
+      			<a href="{% url 'sale' %}" class="btn btn-outline-success my-2 my-sm-0">Agregar Venta</a>
+      		</div>
+    	</form>
+	</nav>
+</div>
+<!--<div class="row d-flex justify-content-center ">-->
+	<div class="col-md-14 ">
+	<table class="table text-center">
+		<thead>
+			<tr>
+				<td>#</td>
+				<td>Fecha</td>
+				<td>Producto</td>
+				<td>Cantidad</td>
+				<td>Precio</td>
+				<td>Total</td>
+				<td>Ganancia bruta</td>
+				<td>Total acumulado</td>
+				<td>Total Ganancia</td>
+				<td>Acciones</td>
+			</tr>
+		</thead>
+		<tbody>
+			{% if ventas %}
+			{% for venta in ventas%}
+			<tr>
+				<td>{{venta.id}}</td>
+				<td>{{venta.fecha}}</td>
+				<td>{{venta.producto.nombre}}</td>
+				<td>{{venta.cantidad}}</td>
+				<td>$ {{venta.precio}}</td>
+				<td>$ {{venta.total}}</td>
+				<td>$ {{venta.ganancia}}</td>
+				<td>$ {{venta.total_parcial}}</td>
+				<td>$ {{venta.total_ganancia}}</td>
+				<td>
+					<a class="btn btn-primary" href="{% url 'editv' venta.id %}">Editar</a>
+					<a class="btn btn-danger" href="{% url 'delv' venta.id %}">Eliminar</a>
+				</td>
+			</tr>
+			{% endfor %}
+			{% else %}
+			<h1>No hay registros</h1>
+			{% endif %}
+		</tbody>
+	</table>
+	</div>
+<!--</div>-->
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<title>Page Title</title>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+  		<a class="navbar-brand" href="#">Inventario</a>
+  		<form class="form-inline my-2 my-lg-0">
+      		<div>
+      			<a href="{% url 'sale' %}" class="btn btn-outline-success my-2 my-sm-0">Ventas</a>
+      		</div>
+    	</form>
+	</nav>
+<div>
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-success">Guardar</button>
+	</form>
+</div>
+
+</body>
+</html>

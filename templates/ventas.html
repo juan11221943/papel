@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<title>Agregar Venta</title>
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark">
+  		<a class="navbar-brand" href="#">Ventas</a>
+  		<form class="form-inline my-2 my-lg-0">
+      		<a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'listav' %}">Ver ventas</a>
+    	</form>
+	</nav>
+
+<div class="row d-flex justify-content-lg-center ">
+	<form method="post">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="btn btn-success">Guardar</button>
+	</form>
+</div>
+
+</body>
+</html>
